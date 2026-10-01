@@ -326,7 +326,7 @@ footer .wrap{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;align-i
 /* --- RESPONSIVE OVERRIDES --- */
 @media (max-width:1024px) {
   .hero-quote {
-    display: none; /* Sembunyikan quote melayang agar tidak menutupi wajah/menu di layar tablet kebawah */
+    display: none;
   }
 }
 
@@ -336,31 +336,53 @@ footer .wrap{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;align-i
   .burger{display:block}
   .nav .btn-green{display:none}
   
-  /* Hero Mobile Layout */
+  /* Hero Mobile Layout - Fix 1 Layar Pas */
   .hero {
-    padding: 78px 0 60px; /* Jarak pas di bawah navigasi */
+    padding: 78px 0 20px; /* Sediakan ruang navigasi */
     flex-direction: column;
     align-items: center;
-    min-height: auto;
+    justify-content: center; /* Teks otomatis di tengah-tengah ruang tersisa */
+    height: 100vh;
+    height: 100dvh; /* Menyesuaikan dinamis dengan tinggi layar aktual (mobile) */
+    min-height: 550px; /* Batas minimum wajar untuk HP mungil */
+    overflow: hidden;
   }
   .hero-photo {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 55vh;
-    min-height: 380px;
-    order: -1; /* Pindahkan gambar ke atas */
+    height: 100%; /* Mengisi seluruh blok sebagai background */
+    min-height: auto;
+    order: unset;
     background-position: center top;
+    z-index: 0;
   }
-  /* Mengubah arah gradient mask pada mobile dari memudar ke kiri menjadi memudar ke atas */
+  /* Mengubah arah gradient mask menutupi foto agar teks mudah dibaca di area bawah */
   .hero-photo::after {
-    background: linear-gradient(to top, var(--wood-900) 0%, rgba(28,15,7,0.8) 25%, transparent 60%);
+    background: linear-gradient(to top, var(--wood-900) 5%, rgba(28,15,7,0.85) 45%, rgba(28,15,7,0.2) 100%);
   }
   .hero .wrap {
     justify-content: center;
-    margin-top: -60px; /* Menarik teks naik sedikit menutupi area gelap gradient */
+    margin-top: 2rem; /* Geser teks turun dari area header */
+    z-index: 2;
+    position: relative;
   }
   .hero-text {
     max-width: 100%;
+  }
+  
+  /* Penyesuaian margin dan font teks agar tidak bocor atau kepanjangan */
+  .hero-text h1 {
+    font-size: clamp(3rem, 11vw, 4.2rem);
+  }
+  .hero-text p.lead {
+    margin: 1rem auto;
+    font-size: 0.95rem;
+  }
+  .badges {
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
   }
 
   .polaroids{height:470px;max-width:480px;margin:0 auto;width:100%}
